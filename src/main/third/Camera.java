@@ -86,6 +86,11 @@ public class Camera implements ICamera {
         return 60;
     }
 
+    @Override
+    public float getAspect() {
+        return 0;
+    }
+
     public Matrix4 getScale() {
         return scale;
     }

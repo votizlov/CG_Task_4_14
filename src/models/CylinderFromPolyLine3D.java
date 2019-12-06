@@ -1,5 +1,6 @@
 package models;
 
+import main.math.Matrix4Factories;
 import main.math.Vector3;
 import main.third.IModel;
 import main.third.Material;
@@ -15,7 +16,7 @@ public class CylinderFromPolyLine3D implements IModel {
     public CylinderFromPolyLine3D(PolyLine3D line,double r,int nPolygons) {
         LinkedList<Vector3> polygonPoints;
 
-        Vector3 rV = new Vector3();
+        Vector3 rV = Matrix4Factories.rotationXYZ(90, Matrix4Factories.Axis.Y).mul(Matrix4Factories.rotationXYZ(90, Matrix4Factories.Axis.Y));;
         lines = new LinkedList<>();
         Circle t = new Circle(line.getPoints().get(0),rV,nPolygons);
         Circle t1;

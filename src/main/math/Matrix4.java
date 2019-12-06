@@ -39,7 +39,6 @@ public class Matrix4 {
         Matrix4 translation = new Matrix4(new float[][]{{1,0,0,0},{0,1,0,0},{0,0,1,0},{10,10,10,1}});
         return orientation.mul(translation);
     }
-
     /**
      * Возвращает значение элемента матрицы по заданным индексам
      * @param row номер строки

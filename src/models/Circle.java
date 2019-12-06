@@ -1,5 +1,7 @@
 package models;
 
+import main.math.Matrix4;
+import main.math.Matrix4Factories;
 import main.math.Vector3;
 import main.math.Vector4;
 import main.third.IModel;
@@ -25,9 +27,10 @@ public class Circle implements IModel {
         LinkedList<Vector3> points = new LinkedList<>();
 
         double dA = 360/res;
+        Matrix4 turnMatrix = Matrix4Factories.rotationXYZ(dA, Matrix4Factories.Axis.Y).mul(Matrix4Factories.rotationXYZ(dA, Matrix4Factories.Axis.Y));
         for (int i = 0;i<res;i++) {
             points.add(center.add(rV));
-            rV = new Vector4(rV).asVector3();//поворот на угол dA
+            rV = turnMatrix.mul(new Vector4(rV)).asVector3();//поворот на угол dA
         }
         points.add(points.getFirst());
 
