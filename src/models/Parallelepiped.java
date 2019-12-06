@@ -6,7 +6,6 @@ package models;
 
 import main.math.Vector3;
 import main.third.IModel;
-import main.third.Material;
 import main.third.PolyLine3D;
 
 import java.util.Arrays;
@@ -16,7 +15,6 @@ import java.util.List;
 
 public class Parallelepiped implements IModel {
     private Vector3 LTF, RBN;
-    private Material m;
 
     /**
      * Создаёт экземпляр параллелипипеда
@@ -26,12 +24,6 @@ public class Parallelepiped implements IModel {
     public Parallelepiped(Vector3 LTF, Vector3 RBN) {
         this.LTF = LTF;
         this.RBN = RBN;
-    }
-
-    public Parallelepiped(Vector3 vector3, Vector3 vector31, Material material) {
-        this.LTF = vector3;
-        this.RBN = vector31;
-        this.m = material;
     }
 
 

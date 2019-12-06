@@ -2,7 +2,6 @@ package models;
 
 import main.math.Vector3;
 import main.third.IModel;
-import main.third.Material;
 import main.third.PolyLine3D;
 
 import java.util.List;

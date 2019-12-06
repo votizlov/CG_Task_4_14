@@ -26,7 +26,7 @@ public class Circle implements IModel {
         lines = new LinkedList<>();
         LinkedList<Vector3> points = new LinkedList<>();
 
-        double dA = 360/res;
+        double dA = 360/(double)res;
         Matrix4 turnMatrix = Matrix4Factories.rotationXYZ(dA, Matrix4Factories.Axis.Y).mul(Matrix4Factories.rotationXYZ(dA, Matrix4Factories.Axis.Y));
         for (int i = 0;i<res;i++) {
             points.add(center.add(rV));

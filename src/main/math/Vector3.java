@@ -22,7 +22,7 @@ public class Vector3 {
     }
 
     public Vector3(Vector3 point, Vector3 point2) {
-
+        values = new float[]{point2.getX()-point.getX(),point2.getY()-point.getY(),point2.getZ()-point.getZ()};
     }
 
     /**
