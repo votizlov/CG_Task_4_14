@@ -20,17 +20,21 @@ public class Circle implements IModel {
         return rV;
     }
 
-    public Circle(Vector3 center, Vector3 rV,int res) {
+    public Circle(Vector3 center, Vector3 rV, Vector3 cV,int res) {
         this.center = center;
         this.rV = rV;
         lines = new LinkedList<>();
         LinkedList<Vector3> points = new LinkedList<>();
 
-        double dA = 360/(double)res;
-        Matrix4 turnMatrix = Matrix4Factories.rotationXYZ(dA, Matrix4Factories.Axis.Y).mul(Matrix4Factories.rotationXYZ(dA, Matrix4Factories.Axis.Y));
-        for (int i = 0;i<res;i++) {
-            points.add(center.add(rV));
-            rV = turnMatrix.mul(new Vector4(rV)).asVector3();//поворот на угол dA
+        float dA = 360/res;
+        float currentA = dA;
+        points.add(center.add(center.add(rV)));
+        Matrix4 turnMatrix;
+        for (int i = 1;i<res;i++) {
+            currentA+=dA;
+            turnMatrix = Matrix4Factories.rorationAroundVector(cV,dA);
+            points.add(center.add(turnMatrix.mul(new Vector4(rV)).asVector3()));
+            //поворот на угол dA
         }
         points.add(points.getFirst());
 

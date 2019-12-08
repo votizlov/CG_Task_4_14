@@ -96,6 +96,7 @@ public class Vector3 {
     public Vector3 cross(Vector3 b) {
         return new Vector3(getY()*b.getZ()-getZ()*b.getY(),getZ()*b.getX()-getX()*b.getZ(),getX()*b.getY()-getY()*b.getX());
     }
+
     //нормализация
     public void normalize() {
         float l = 1/length();
@@ -104,7 +105,7 @@ public class Vector3 {
         values[2]*=l;
     }
     //разность
-    public Vector3 extract(Vector3 center) {
+    public Vector3 substract(Vector3 center) {
         return new Vector3(getX()-center.getX(),getY()-center.getY(),getZ()-center.getZ());
     }
 
@@ -114,5 +115,9 @@ public class Vector3 {
 
     public Vector3 mul(float l) {
         return new Vector3(getX()*l,getY()*l,getZ()*l);
+    }
+
+    public static Vector3 getMiddle(Vector3 p1,Vector3 p2){
+        return new Vector3((p1.getX()+p2.getX())/2,(p1.getY()+p2.getY())/2,p1.getZ()+p2.getZ()/2);
     }
 }
