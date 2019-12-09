@@ -35,18 +35,34 @@ public class DrawPanel extends JPanel
         camController = new CameraController(cam, sc);
         scene = new Scene(Color.WHITE.getRGB());
         scene.showAxes();
-/*
+
         scene.getModelsList().add(new CylinderFromPolyLine3D(
                 new PolyLine3D(Arrays.asList(
-                        new Vector3(0,0,0),
-                        new Vector3(1,0,0),
-                        new Vector3(2,0,0),
-                        new Vector3(3,0,0),
-                        new Vector3(4,0,0)
-                ),false),3,10
+                        new Vector3(5, 0, 0),
+                        new Vector3(4, 1, 0),
+                        new Vector3(3, 2, 0),
+                        new Vector3(2, 3, 0),
+                        new Vector3(1, 4, 0),
+                        new Vector3(0, 5, 0),
+                        new Vector3(-1, 4, 0),
+                        new Vector3(-2, 3, 0),
+                        new Vector3(-3, 2, 0),
+                        new Vector3(-4, 1, 0),
+                        new Vector3(-5, 0, 0),
+                        new Vector3(-4, -1, 0),
+                        new Vector3(-3, -2, 0),
+                        new Vector3(-2, -3, 0),
+                        new Vector3(-1, -4, 0),
+                        new Vector3(0, -5, 0),
+                        new Vector3(1, -4, 0),
+                        new Vector3(2, -3, 0),
+                        new Vector3(3, -2, 0),
+                        new Vector3(4, -1, 0),
+                        new Vector3(5,0,0)
+                ), true), 1, 10
         ));
-  */
-        scene.getModelsList().add(new Circle(new Vector3(0,0,0),new Vector3(1,0,0),new Vector3(0,1,0),7));
+
+        //scene.getModelsList().add(new Circle(new Vector3(0,0,0),new Vector3(1,1,1),new Vector3(-1,1,-1),10));
 
         camController.addRepaintListener(this);
         addMouseListener(camController);

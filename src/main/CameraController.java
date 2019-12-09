@@ -28,8 +28,8 @@ public class CameraController implements MouseListener, MouseMotionListener, Mou
     @Override
     public void keyPressed(KeyEvent keyEvent) {
         System.out.println("a");
-        switch (keyEvent.getKeyCode()){
-            case KeyEvent.VK_A:
+        switch (keyEvent.getKeyChar()){
+            case 'a':
                 camera.modifyCameraPos(new Vector3(1,0,0));
             break;
             case KeyEvent.VK_S:

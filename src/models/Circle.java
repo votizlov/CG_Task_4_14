@@ -1,13 +1,14 @@
 package models;
 
-import main.math.Matrix4;
-import main.math.Matrix4Factories;
-import main.math.Vector3;
-import main.math.Vector4;
+import com.sun.javafx.geom.Quat4f;
+import main.math.*;
 import main.third.IModel;
 import main.third.PolyLine3D;
 import java.util.LinkedList;
 import java.util.List;
+
+import static java.lang.Math.cos;
+import static java.lang.Math.toRadians;
 
 public class Circle implements IModel {
     Vector3 center,rV;
@@ -26,14 +27,17 @@ public class Circle implements IModel {
         lines = new LinkedList<>();
         LinkedList<Vector3> points = new LinkedList<>();
 
-        float dA = 360/res;
-        float currentA = dA;
+        float dA = (float) toRadians(360/res);
+        Matrix4 turnM;
+
+        Quat4f qR = QuatMath.createQuat(cV,dA);
         points.add(center.add(center.add(rV)));
-        Matrix4 turnMatrix;
-        for (int i = 1;i<res;i++) {
-            currentA+=dA;
-            turnMatrix = Matrix4Factories.rorationAroundVector(cV,dA);
-            points.add(center.add(turnMatrix.mul(new Vector4(rV)).asVector3()));
+        for (int i = 0;i<res;i++) {
+            turnM = Matrix4Factories.rorationAroundVector(cV, (float) cos(dA));
+            //rV = QuatMath.transformVector(qR,rV);
+            rV = turnM.mul(new Vector4(rV)).asVector3();
+            //points.add(center.add(turnMatrix.mul(new Vector4(rV)).asVector3()));
+            points.add(rV);
             //поворот на угол dA
         }
         points.add(points.getFirst());
