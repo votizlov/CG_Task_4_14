@@ -18,7 +18,7 @@ public class CylinderFromPolyLine3D implements IModel {
         Vector3 rV;
         Vector3 cV;
 
-        if (!line.isClosed()) {
+        if (line.isClosed()) {
             rV = new Vector3(
                     line.getPoints().get(0),
                     Vector3.getMiddle(line.getPoints().get(line.getPoints().size()-1),line.getPoints().get(1)));
@@ -34,14 +34,14 @@ public class CylinderFromPolyLine3D implements IModel {
         Circle t = new Circle(line.getPoints().get(0), rV, line.getPoints().get(0), nPolygons);
         Circle t1;
 
-        for (int i = 1; i < line.getPoints().size() - 1; i++) {//за один шаг этого цикла вычисляется одна секция
+        for (int i = 1; i < line.getPoints().size(); i++) {//за один шаг этого цикла вычисляется одна секция
             //вычисление изменения наклона rV измерением угла между двумя секциями
             rV = new Vector3(
                     line.getPoints().get(i),
-                    Vector3.getMiddle(line.getPoints().get(i-1),line.getPoints().get(i+1)));
+                    Vector3.getMiddle(line.getPoints().get(i-1),line.getPoints().get(i)));
             cV = new Vector3(
                     line.getPoints().get(i-1),
-                    line.getPoints().get(i+1)
+                    line.getPoints().get(i)
             ).substract(rV);
             t1 = new Circle(line.getPoints().get(i), rV, cV, nPolygons);
             lines.addAll(connectCircles(t, t1));
@@ -53,13 +53,12 @@ public class CylinderFromPolyLine3D implements IModel {
         LinkedList<PolyLine3D> line = new LinkedList<>();
 
         for (int i = 0; i < t.getLines().get(0).getPoints().size() - 1; i++) {
-            for (int j = 0; j < t1.getLines().get(0).getPoints().size() - 1; j++) {
                 line.add(new PolyLine3D(Arrays.asList(t.getLines().get(0).getPoints().get(i),
-                        t1.getLines().get(0).getPoints().get(j),
-                        t1.getLines().get(0).getPoints().get(j + 1),
+                        t1.getLines().get(0).getPoints().get(i),
+                        t1.getLines().get(0).getPoints().get(i + 1),
                         t.getLines().get(0).getPoints().get(i + 1),
                         t.getLines().get(0).getPoints().get(i)), true));
-            }
+
         }
 
         return line;
