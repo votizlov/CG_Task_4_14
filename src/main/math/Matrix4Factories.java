@@ -8,7 +8,6 @@ import static java.lang.Math.*;
 
 /**
  * Класс, хранящий методы создания особых матриц.
- * @author Alexey
  */
 public final class Matrix4Factories {
     /**

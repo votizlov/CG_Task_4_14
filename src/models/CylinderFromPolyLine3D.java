@@ -18,7 +18,7 @@ public class CylinderFromPolyLine3D implements IModel {
         Vector3 rV;
         Vector3 cV;
 
-        if (line.isClosed()) {
+        if (!line.isClosed()) {
             rV = new Vector3(
                     line.getPoints().get(0),
                     Vector3.getMiddle(line.getPoints().get(line.getPoints().size()-1),line.getPoints().get(1)));
