@@ -12,6 +12,7 @@ import main.third.*;
 import models.Circle;
 import models.CylinderFromPolyLine3D;
 import models.Parallelepiped;
+import models.Tor;
 
 import javax.swing.*;
 import java.awt.*;
@@ -61,7 +62,7 @@ public class DrawPanel extends JPanel
                         new Vector3(5,0,0)
                 ), true), 1, 10
         ));*/
-
+/*
         scene.getModelsList().add(new CylinderFromPolyLine3D(
                 new PolyLine3D(Arrays.asList(
                         new Vector3(0, 0, 0),
@@ -71,7 +72,8 @@ public class DrawPanel extends JPanel
                         new Vector3(4, 4, 4)
 
                 ), true), 1, 500));
-
+*/
+scene.getModelsList().add(new Tor(new Vector3(0,0,0),2,0,200));
         //scene.getModelsList().add(new Circle(new Vector3(-1,-1,-1),new Vector3(1,1,1),new Vector3(11,1,11),100));
 
         camController.addRepaintListener(this);

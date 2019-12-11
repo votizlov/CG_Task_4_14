@@ -19,10 +19,13 @@ public class CylinderFromPolyLine3D implements IModel {
         Vector3 cV;
 
         if (line.isClosed()) {
+            /*
             rV = new Vector3(
                     line.getPoints().get(0),
                     Vector3.getMiddle(line.getPoints().get(line.getPoints().size()-1),line.getPoints().get(1)));
             rV = rV.mul((float) (r/rV.length()));
+            */
+            rV = new Vector3(line.getPoints().get(0),line.getPoints().get(1));
         } else {
             rV = Matrix4Factories.rotationXYZ(90, Matrix4Factories.Axis.Y)
                     .mul(Matrix4Factories.rotationXYZ(90, Matrix4Factories.Axis.X))
@@ -34,15 +37,18 @@ public class CylinderFromPolyLine3D implements IModel {
         Circle t = new Circle(line.getPoints().get(0), rV, line.getPoints().get(0), nPolygons);
         Circle t1;
 
-        for (int i = 1; i < line.getPoints().size(); i++) {//за один шаг этого цикла вычисляется одна секция
+        for (int i = 1; i < line.getPoints().size()-1; i++) {//за один шаг этого цикла вычисляется одна секция
             //вычисление изменения наклона rV измерением угла между двумя секциями
             rV = new Vector3(
-                    line.getPoints().get(i),
-                    Vector3.getMiddle(line.getPoints().get(i-1),line.getPoints().get(i)));
-            cV = new Vector3(
+
+                    line.getPoints().get(i),line.getPoints().get(i+1));
+           /* cV = new Vector3(
                     line.getPoints().get(i-1),
                     line.getPoints().get(i)
             ).substract(rV);
+            */
+           cV = new Vector3(
+                   line.getPoints().get(i),line.getPoints().get(i+1));
             t1 = new Circle(line.getPoints().get(i), rV, cV, nPolygons);
             lines.addAll(connectCircles(t, t1));
             t = t1;

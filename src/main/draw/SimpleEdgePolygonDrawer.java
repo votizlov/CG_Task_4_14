@@ -21,7 +21,7 @@ public class SimpleEdgePolygonDrawer extends ScreenGraphicsDrawer {
 
     public SimpleEdgePolygonDrawer(ScreenConverter sc, Graphics2D g) {
         super(sc, g);
-        pointLight = new PointLight(new Vector3(0, 0, 0), 300, 10, Color.ORANGE);
+        pointLight = new PointLight(new Vector3(0, 0, 0), 3000, 10, Color.ORANGE);
     }
 
     /**
@@ -53,7 +53,7 @@ public class SimpleEdgePolygonDrawer extends ScreenGraphicsDrawer {
                 k = 0;
             getGraphics().setColor(new Color((int) (250 * k), (int) (218 * k), (int) (94 * k)));
             //getGraphics().setColor(Color.ORANGE);
-            //getGraphics().fillPolygon(crds.getXx(), crds.getYy(), crds.size());
+            getGraphics().fillPolygon(crds.getXx(), crds.getYy(), crds.size());
         } else
         getGraphics().drawPolyline(crds.getXx(), crds.getYy(), crds.size());
     }
