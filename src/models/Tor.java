@@ -18,23 +18,20 @@ public class Tor implements IModel {
 
     public Tor(Vector3 pos, double r, double width, int sectionN) {
 
-        Vector3 translateV = new Vector3(pos, new Vector3(0, 0, 0));
-        Vector3 backTranslateV = new Vector3(new Vector3(0, 0, 0), pos);
-        double dA = toRadians(360 / (double) sectionN);
+        //Vector3 translateV = new Vector3(new Vector3(0,0,0),pos);
+        //double dA = toRadians(360 / (double) sectionN);
         Vector3 rV = new Vector3((float) r,0,0);
+        /*
         LinkedList<Vector3> points = new LinkedList<>();
         Matrix4 turnM;
         for (int i = 0; i < sectionN; i++) {
-            turnM = Matrix4Factories.translation(backTranslateV)
-                    .mul(Matrix4Factories.rorationAroundVector(new Vector3(0, 1, 0), (float) cos(dA))
-                            .mul(Matrix4Factories.translation(translateV)));
+            turnM =Matrix4Factories.rorationAroundVector(new Vector3(0, 1, 0), (float) cos(dA)).mul( Matrix4Factories.translation(translateV));
             rV = turnM.mul(new Vector4(rV, 1)).asVector3();
-            //points.add(center.add(turnMatrix.mul(new Vector4(rV)).asVector3()));
             points.add(rV);
         }
         points.add(points.getFirst());
-
-        CylinderFromPolyLine3D cylinder = new CylinderFromPolyLine3D(new PolyLine3D(points,true),width,sectionN);
+*/
+        CylinderFromPolyLine3D cylinder = new CylinderFromPolyLine3D(new Circle(pos,rV,new Vector3(0,1,0),sectionN).lines.getFirst(),width,sectionN);
 
         lines.addAll(cylinder.getLines());
     }

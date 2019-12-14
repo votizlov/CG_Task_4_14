@@ -5,6 +5,7 @@ import main.math.*;
 import main.third.IModel;
 import main.third.PolyLine3D;
 
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
@@ -25,31 +26,32 @@ public class Circle implements IModel {
     }
 
     public Circle(Vector3 center, Vector3 rV, Vector3 cV, int res) {
+        cV.normalize();
         this.center = center;
         this.rV = rV;
         lines = new LinkedList<>();
         LinkedList<Vector3> points = new LinkedList<>();
         Vector3 translateV = new Vector3(center, new Vector3(0, 0, 0));
-        Vector3 backTranslateV = new Vector3(new Vector3(0, 0, 0), center);
 
-        double dA = toRadians(360 / (double)res);
+        double dA = toRadians(360 / (double) res);
         Matrix4 turnM;
+        Matrix4 transM = Matrix4Factories.translation(translateV);
 
         Quat4f qR = QuatMath.createQuat(cV, dA);
         //points.add(center.add(center.add(rV)));
         for (int i = 0; i < res; i++) {
-            turnM = Matrix4Factories.translation(backTranslateV)
-                    .mul(Matrix4Factories.rorationAroundVector(cV, (float) cos(dA))
-                            .mul(Matrix4Factories.translation(translateV)));
-            //rV = QuatMath.transformVector(qR,rV);
+            turnM = Matrix4Factories.rorationAroundVector(cV, (float) cos(dA));
 
-            rV = turnM.mul(new Vector4(rV,1)).asVector3();
-            //points.add(center.add(turnMatrix.mul(new Vector4(rV)).asVector3()));
+            rV = turnM.mul(new Vector4(rV, 1)).asVector3();
             points.add(rV);
             //поворот на угол dA
         }
+        LinkedList<Vector3> t = new LinkedList<>();
+        for (int i = 0; i < points.size(); i++) {
+            t.add(transM.mul(new Vector4(points.get(i),1)).asVector3());
+        }
 
-        lines.add(new PolyLine3D(points, true));
+        lines.add(new PolyLine3D(t, true));
     }
 
     @Override
