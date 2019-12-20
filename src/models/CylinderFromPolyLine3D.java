@@ -24,12 +24,15 @@ public class CylinderFromPolyLine3D implements IModel {
                     line.getPoints().get(line.getPoints().size() - 1), line.getPoints().get(0)).mul((float) r), 1)).asVector3();
             cV = new Vector3(
                     line.getPoints().get(line.getPoints().size() - 1), line.getPoints().get(0));
-        } else {
+        } else {/*
             rV = Matrix4Factories.rotationXYZ(90, Matrix4Factories.Axis.Y)
                     .mul(Matrix4Factories.rotationXYZ(90, Matrix4Factories.Axis.X))
                     .mul(new Vector4(new Vector3(line.getPoints().get(0), line.getPoints().get(1))))
-                    .asVector3();
-            cV = line.getPoints().get(0);
+                    .asVector3();*/
+            rV = turnMatrix.mul(new Vector4(new Vector3(
+                    line.getPoints().get(0), line.getPoints().get(1)).mul((float) r), 1)).asVector3();
+            cV = new Vector3(
+                    line.getPoints().get(0), line.getPoints().get(1));
         }
 
         lines = new LinkedList<>();
@@ -46,12 +49,14 @@ public class CylinderFromPolyLine3D implements IModel {
             lines.addAll(connectCircles(t, t1));
             t = t1;
         }
-        rV = turnMatrix.mul(new Vector4(new Vector3(
-                line.getPoints().get(line.getPoints().size()-1), line.getPoints().get(0)).mul((float) r), 1)).asVector3();
-        cV = new Vector3(
-                line.getPoints().get(line.getPoints().size()-1), line.getPoints().get(0));
-        t1 = new Circle(line.getPoints().get(line.getPoints().size()-1), rV, cV, nPolygons);
-        lines.addAll(connectCircles(t, t1));
+        if (line.isClosed()) {
+            rV = turnMatrix.mul(new Vector4(new Vector3(
+                    line.getPoints().get(line.getPoints().size() - 1), line.getPoints().get(0)).mul((float) r), 1)).asVector3();
+            cV = new Vector3(
+                    line.getPoints().get(line.getPoints().size() - 1), line.getPoints().get(0));
+            t1 = new Circle(line.getPoints().get(line.getPoints().size() - 1), rV, cV, nPolygons);
+            lines.addAll(connectCircles(t, t1));
+        }
     }
 
     private LinkedList<PolyLine3D> connectCircles(Circle t, Circle t1) {

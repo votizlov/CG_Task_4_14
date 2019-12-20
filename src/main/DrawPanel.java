@@ -62,7 +62,7 @@ public class DrawPanel extends JPanel
                         new Vector3(5,0,0)
                 ), true), 1, 10
         ));*/
-/*
+
         scene.getModelsList().add(new CylinderFromPolyLine3D(
                 new PolyLine3D(Arrays.asList(
                         new Vector3(0, 0, 0),
@@ -71,9 +71,9 @@ public class DrawPanel extends JPanel
                         new Vector3(3, 3, 3),
                         new Vector3(4, 4, 4)
 
-                ), true), 1, 500));
-*/
-scene.getModelsList().add(new Tor(new Vector3(0,0,0),2,1,20));
+                ), false), 1, 10));
+
+//scene.getModelsList().add(new Tor(new Vector3(0,0,0),5,0.5,50));
         //scene.getModelsList().add(new Circle(new Vector3(0,0,0),new Vector3(1,0,0),new Vector3(0,1,0),100));
 
         camController.addRepaintListener(this);
