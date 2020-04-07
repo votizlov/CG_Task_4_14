@@ -33,12 +33,20 @@ public class Circle implements IModel {
         LinkedList<Vector3> points = new LinkedList<>();
         Vector3 translateV = new Vector3(center, new Vector3(0, 0, 0));
 
+
+
         double dA = toRadians(360 / (double) res);
         Matrix4 turnM;
         Matrix4 transM = Matrix4Factories.translation(translateV);
 
         Quat4f qR = QuatMath.createQuat(cV, dA);
         //points.add(center.add(center.add(rV)));
+
+        //поворачиваем на 45
+        turnM = Matrix4Factories.rorationAroundVector(cV, (float) cos(toRadians(45)));
+
+        rV = turnM.mul(new Vector4(rV, 1)).asVector3();
+
         for (int i = 0; i < res; i++) {
             turnM = Matrix4Factories.rorationAroundVector(cV, (float) cos(dA));
 
@@ -48,7 +56,7 @@ public class Circle implements IModel {
         }
         LinkedList<Vector3> t = new LinkedList<>();
         for (int i = 0; i < points.size(); i++) {
-            t.add(transM.mul(new Vector4(points.get(i),1)).asVector3());
+            t.add(transM.mul(new Vector4(points.get(i), 1)).asVector3());
         }
 
         lines.add(new PolyLine3D(t, true));
