@@ -69,8 +69,10 @@ public class DrawPanel extends JPanel
 
                 ), false), 1, 10));*/
 
-scene.getModelsList().add(new Tor(new Vector3(0,0,0),5,0.5,10));
-        //scene.getModelsList().add(new Circle(new Vector3(0,0,0),new Vector3(1,0,0),new Vector3(0,1,0),100));
+scene.getModelsList().add(new Tor(new Vector3(0,0,0),5,0.5,20));
+//scene.getModelsList().add(new Tor(new Vector3(0,0,0),1,0.5,20));
+        scene.getModelsList().add(new Circle(new Vector3(0,0.5f,0),new Vector3(1,0,0),new Vector3(0,1,0),100));
+        scene.getModelsList().add(new Circle(new Vector3(0,-0.5f,0),new Vector3(1,0,0),new Vector3(0,1,0),100));
 
         camController.addRepaintListener(this);
         addMouseListener(camController);
