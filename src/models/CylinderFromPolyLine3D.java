@@ -55,7 +55,7 @@ public class CylinderFromPolyLine3D implements IModel {
                     line.getPoints().get(line.getPoints().size() - 1), line.getPoints().get(0)).mul((float) r), 1)).asVector3();
             cV = new Vector3(
                     line.getPoints().get(line.getPoints().size() - 1), line.getPoints().get(0));
-            t1 = new Circle(line.getPoints().get(line.getPoints().size() - 1), rV, cV, nPolygons);
+            t1 = new Circle(line.getPoints().get(line.getPoints().size() - 1), rV, cV, 4);
             lines.addAll(connectCircles(t, t1));
         }
     }

@@ -79,6 +79,7 @@ scene.getModelsList().add(new Tor(new Vector3(0,0,0),5,0.5,20));
         addMouseMotionListener(camController);
         addMouseWheelListener(camController);
         addKeyListener(camController);
+        float a = 3.01F;
     }
 
     @Override
