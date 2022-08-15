@@ -39,30 +39,19 @@ public class DrawPanel extends JPanel
 /*
         scene.getModelsList().add(new CylinderFromPolyLine3D(
                 new PolyLine3D(Arrays.asList(
-                        new Vector3(5, 0, 0),
-                        new Vector3(4, 1, 0),
-                        new Vector3(3, 2, 0),
-                        new Vector3(2, 3, 0),
-                        new Vector3(1, 4, 0),
-                        new Vector3(0, 5, 0),
-                        new Vector3(-1, 4, 0),
-                        new Vector3(-2, 3, 0),
-                        new Vector3(-3, 2, 0),
-                        new Vector3(-4, 1, 0),
-                        new Vector3(-5, 0, 0),
-                        new Vector3(-4, -1, 0),
-                        new Vector3(-3, -2, 0),
-                        new Vector3(-2, -3, 0),
-                        new Vector3(-1, -4, 0),
-                        new Vector3(0, -5, 0),
-                        new Vector3(1, -4, 0),
-                        new Vector3(2, -3, 0),
-                        new Vector3(3, -2, 0),
-                        new Vector3(4, -1, 0),
-                        new Vector3(5,0,0)
-                ), true), 1, 10
+                        new Vector3(5, 1, 5),
+                        new Vector3(4, 2, 4),
+                        new Vector3(3, 3, 3),
+                        new Vector3(2, 4, 2),
+                        new Vector3(1, 5, 1),
+                        new Vector3(5, 6, 5),
+                        new Vector3(4, 7, 4),
+                        new Vector3(3, 8, 3),
+                        new Vector3(2, 9, 2),
+                        new Vector3(1, 10, 1)
+                ), false), 1, 10
         ));*/
-
+/*
         scene.getModelsList().add(new CylinderFromPolyLine3D(
                 new PolyLine3D(Arrays.asList(
                         new Vector3(0, 0, 0),
@@ -71,16 +60,26 @@ public class DrawPanel extends JPanel
                         new Vector3(3, 3, 3),
                         new Vector3(4, 4, 4)
 
-                ), false), 1, 10));
+                ), false), 1, 10));*/
+/*
+        scene.getModelsList().add(new CylinderFromPolyLine3D(
+                new PolyLine3D(Arrays.asList(
+                        new Vector3(0, 0, 0),
+                        new Vector3(1, 1, 1)
 
-//scene.getModelsList().add(new Tor(new Vector3(0,0,0),5,0.5,50));
-        //scene.getModelsList().add(new Circle(new Vector3(0,0,0),new Vector3(1,0,0),new Vector3(0,1,0),100));
+                ), false), 1, 10));*/
+
+scene.getModelsList().add(new Tor(new Vector3(0,0,0),5,0.5,20));
+//scene.getModelsList().add(new Tor(new Vector3(0,0,0),1,0.5,20));
+        scene.getModelsList().add(new Circle(new Vector3(0,0.5f,0),new Vector3(1,0,0),new Vector3(0,1,0),100));
+        scene.getModelsList().add(new Circle(new Vector3(0,-0.5f,0),new Vector3(1,0,0),new Vector3(0,1,0),100));
 
         camController.addRepaintListener(this);
         addMouseListener(camController);
         addMouseMotionListener(camController);
         addMouseWheelListener(camController);
         addKeyListener(camController);
+        float a = 3.01F;
     }
 
     @Override

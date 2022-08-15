@@ -13,6 +13,7 @@ import java.util.List;
 
 public class CylinderFromPolyLine3D implements IModel {
     private LinkedList<PolyLine3D> lines;
+    private boolean flag = true;
 
     public CylinderFromPolyLine3D(PolyLine3D line, double r, int nPolygons) {
         Vector3 rV;
@@ -36,7 +37,7 @@ public class CylinderFromPolyLine3D implements IModel {
         }
 
         lines = new LinkedList<>();
-        Circle t = new Circle(line.getPoints().get(line.getPoints().size()-1), rV, cV, nPolygons);
+        Circle t = new Circle(line.getPoints().get(line.getPoints().size() - 1), rV, cV, 4);
         Circle t1;
 
         for (int i = 0; i < line.getPoints().size() - 1; i++) {//за один шаг этого цикла вычисляется одна секция
@@ -45,7 +46,7 @@ public class CylinderFromPolyLine3D implements IModel {
                     line.getPoints().get(i), line.getPoints().get(i + 1)).mul((float) r), 1)).asVector3();
             cV = new Vector3(
                     line.getPoints().get(i), line.getPoints().get(i + 1));
-            t1 = new Circle(line.getPoints().get(i), rV, cV, nPolygons);
+            t1 = new Circle(line.getPoints().get(i), rV, cV, 4);
             lines.addAll(connectCircles(t, t1));
             t = t1;
         }
@@ -54,31 +55,51 @@ public class CylinderFromPolyLine3D implements IModel {
                     line.getPoints().get(line.getPoints().size() - 1), line.getPoints().get(0)).mul((float) r), 1)).asVector3();
             cV = new Vector3(
                     line.getPoints().get(line.getPoints().size() - 1), line.getPoints().get(0));
-            t1 = new Circle(line.getPoints().get(line.getPoints().size() - 1), rV, cV, nPolygons);
+            t1 = new Circle(line.getPoints().get(line.getPoints().size() - 1), rV, cV, 4);
             lines.addAll(connectCircles(t, t1));
         }
     }
 
     private LinkedList<PolyLine3D> connectCircles(Circle t, Circle t1) {
+
         LinkedList<PolyLine3D> line = new LinkedList<>();
+        if (flag) {
+            for (int i = 0; i < t.getLines().get(0).getPoints().size() - 1; i++) {
+                line.add(new PolyLine3D(Arrays.asList(
+                        //t.getLines().get(0).getPoints().get(i),
+                        //t1.getLines().get(0).getPoints().get(i),
+                        //t1.getLines().get(0).getPoints().get(i + 1),
+                        //t.getLines().get(0).getPoints().get(i + 1),
+                        t.getLines().get(0).getPoints().get(i)), false));
 
-        for (int i = 0; i < t.getLines().get(0).getPoints().size() - 1; i++) {
+            }
+/*
             line.add(new PolyLine3D(Arrays.asList(
-                    t.getLines().get(0).getPoints().get(i),
-                    t1.getLines().get(0).getPoints().get(i),
-                    t1.getLines().get(0).getPoints().get(i + 1),
-                    t.getLines().get(0).getPoints().get(i + 1),
-                    t.getLines().get(0).getPoints().get(i)), true));
+                    t.getLines().get(0).getPoints().get(t.getLines().get(0).getPoints().size() - 1),
+                    t1.getLines().get(0).getPoints().get(t1.getLines().get(0).getPoints().size() - 1),
+                    t1.getLines().get(0).getPoints().get(0),
+                    t.getLines().get(0).getPoints().get(0),
+                    t.getLines().get(0).getPoints().get(t.getLines().get(0).getPoints().size() - 1)), false));*/
+        } else {
+            for (int i = 0; i < t.getLines().get(0).getPoints().size() - 1; i++) {
+                line.add(new PolyLine3D(Arrays.asList(
+                        t.getLines().get(0).getPoints().get(i),
+                        t1.getLines().get(0).getPoints().get(i),
+                        t1.getLines().get(0).getPoints().get(i + 1),
+                        t.getLines().get(0).getPoints().get(i + 1),
+                        t.getLines().get(0).getPoints().get(i)
+                ), false));
 
+            }
+
+            line.add(new PolyLine3D(Arrays.asList(
+                    t.getLines().get(0).getPoints().get(t.getLines().get(0).getPoints().size() - 1),
+                    t1.getLines().get(0).getPoints().get(t1.getLines().get(0).getPoints().size() - 1),
+                    t1.getLines().get(0).getPoints().get(0),
+                    t.getLines().get(0).getPoints().get(0),
+                    t.getLines().get(0).getPoints().get(t.getLines().get(0).getPoints().size() - 1)), false));
         }
-
-        line.add(new PolyLine3D(Arrays.asList(
-                t.getLines().get(0).getPoints().get(t.getLines().get(0).getPoints().size()-1),
-                t1.getLines().get(0).getPoints().get(t1.getLines().get(0).getPoints().size()-1),
-                t1.getLines().get(0).getPoints().get(0),
-                t.getLines().get(0).getPoints().get(0),
-                t.getLines().get(0).getPoints().get(t.getLines().get(0).getPoints().size()-1)), true));
-
+        flag = !flag;
         return line;
     }
 
